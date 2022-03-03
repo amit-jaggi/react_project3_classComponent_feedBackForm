@@ -1,4 +1,5 @@
 import React from 'react';
+import EmployeeData from './EmployeeData'
 
 class FeedbackForm extends React.Component {
     constructor() {
@@ -34,12 +35,18 @@ class FeedbackForm extends React.Component {
                 name : '',
                 department : '',
                 rating : '',
-                content : !this.state.content
+                content: !this.state.content
             });
         }
         else {
             alert('Field is required.\nYou have left a field empty and a value must be entered.')
         }
+    }
+
+    toggleContent = () => {
+        this.setState({
+            content : !this.state.content
+        })
     }
 
     render() {
@@ -66,20 +73,7 @@ class FeedbackForm extends React.Component {
                             </form>
                         </>
                         :
-                        <>
-                            <h2>EMPLOYEE FEEDBACK DATA</h2>
-                            <div className="show-details">
-                                {
-                                    this.state.users.map((element, index) => {
-                                        const { name, department, rating } = element;
-                                        return (
-                                            <span className="detail" key={index}>Name : {name} &nbsp;|&nbsp; Department : {department} &nbsp;|&nbsp; Rating : {rating}</span>
-                                        )
-                                    })
-                                }
-                            </div>
-                            <button type="back" className='back-btn' onClick={() => {this.setState({content : !this.state.content})}}>BACK</button>
-                        </>
+                        <EmployeeData users={this.state.users} content={this.toggleContent}/>
                 }
             </div>
         )
